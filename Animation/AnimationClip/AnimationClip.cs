@@ -10,24 +10,21 @@ public class AnimationClip
     Rectangle[] srcRects;
 	PlayMode playMode = PlayMode.Play;
 	float animTime = 0.0f;
-	float speed = 6.0f;
+	float speed;
 
-    public AnimationClip(Rectangle[] srcRects)
+    public AnimationClip(Rectangle[] srcRects, float speed)
 	{
 		this.srcRects = srcRects;
+		this.speed = speed;
 	}
 
-	public void Play()
-	{
-		playMode = PlayMode.Play;
-	}
+	public void SetPlay() { playMode = PlayMode.Play; }
 
-    public void Pause()
-    {
-        playMode = PlayMode.Pause;
-    }
+    public void SetPause() { playMode = PlayMode.Pause; }
 
-	public void Update(float dt)
+    public void SetSpeed(float speed) { this.speed = speed; }
+
+    public void Update(float dt)
 	{
 		if (playMode == PlayMode.Pause) return;
 
