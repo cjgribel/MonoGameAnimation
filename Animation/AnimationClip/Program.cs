@@ -1,3 +1,3 @@
 ﻿
-using var game = new AnimationClip.Game1();
+using var game = new Animation.Game1();
 game.Run();
