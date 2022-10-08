@@ -12,8 +12,8 @@ namespace Animation
 
         private Texture2D marioTex;
 
-        private AnimationClip marioWalkClip, marioDeathClip;
-        private AnimationClip marioCurrentClip; // currently active clip
+        private AnimationClip walkClip, deathClip;
+        private AnimationClip currentClip; // currently active clip
 
         public Game1()
         {
@@ -38,13 +38,13 @@ namespace Animation
             marioTex = this.Content.Load<Texture2D>(@"mario-pauline");
 
             // Source rectangles for all Mario clips 
-            Rectangle[] marioWalkRects = new Rectangle[]
+            Rectangle[] walkRects = new Rectangle[]
             {
                 new Rectangle(0*16 + 1, 1, 16, 16),
                 new Rectangle(1*16 + 2, 1, 16, 16),
                 new Rectangle(2*16 + 3, 1, 16, 16)
             };
-            Rectangle[] marioDeathRects = new Rectangle[]
+            Rectangle[] deathRects = new Rectangle[]
             {
                 new Rectangle(15*16 + 16, 1, 16, 16),
                 new Rectangle(16*16 + 17, 1, 16, 16),
@@ -54,14 +54,8 @@ namespace Animation
             };
 
             // Create Mario clips from source rectangles
-            marioWalkClip = new AnimationClip(marioWalkRects, 7.5f);
-            marioDeathClip = new AnimationClip(marioDeathRects, 5.0f);
-
-            // Set the current Mario clip
-            marioCurrentClip = marioWalkClip;
-            // currentClip = marioDeathClip;
-
-            marioCurrentClip.SetPlay();
+            walkClip = new AnimationClip(walkRects, 7.5f);
+            deathClip = new AnimationClip(deathRects, 5.0f);
         }
 
         protected override void Update(GameTime gameTime)
@@ -71,7 +65,12 @@ namespace Animation
 
             // TODO: Add your update logic here
 
-            marioCurrentClip.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+            // Based on game events, set current clip, play/pause etc
+            currentClip = walkClip;
+            currentClip.SetPlay();
+
+            // Update current clip
+            currentClip.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             base.Update(gameTime);
         }
@@ -101,7 +100,7 @@ namespace Animation
             _spriteBatch.Draw(
                 marioTex,
                 destRect,
-                marioCurrentClip.GetCurrentSourceRectangle(),
+                currentClip.GetCurrentSourceRectangle(),
                 Color.White,
                 0,
                 Vector2.Zero,
