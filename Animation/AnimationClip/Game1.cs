@@ -5,6 +5,23 @@ using SharpDX.Direct3D9;
 
 namespace Animation
 {
+    public static class DebugRectangle
+    {
+        private static Texture2D texture;
+
+        public static void Init(GraphicsDevice graphicsDevice)
+        {
+            texture = new Texture2D(graphicsDevice, 1, 1);
+            Color[] color = new Color[1] { Color.White };
+            texture.SetData(color);
+        }
+
+        public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rectangle, Color color)
+        {
+            spriteBatch.Draw(texture, rectangle, color);
+        }
+    }
+
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -25,6 +42,13 @@ namespace Animation
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            
+            _graphics.PreferredBackBufferWidth = 500;
+            _graphics.PreferredBackBufferHeight = 500;
+            _graphics.ApplyChanges();
+
+            Window.Title = "AnimationClip";
+            Window.Title = "DebugRectangle";
 
             base.Initialize();
         }
@@ -34,6 +58,8 @@ namespace Animation
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            DebugRectangle.Init(GraphicsDevice);
 
             marioTex = this.Content.Load<Texture2D>(@"mario-pauline");
 
@@ -83,6 +109,10 @@ namespace Animation
 
             Rectangle destRect = new Rectangle(100, 100, 300, 300);
 
+            Rectangle rect1 = new Rectangle(100, 100, 100, 100);
+            Rectangle rect2 = new Rectangle(200, 100, 100, 100);
+            Rectangle rect3 = new Rectangle(300, 100, 100, 100);
+
             //_spriteBatch.Begin();
             //_spriteBatch.Draw(
             //    marioTex,
@@ -97,6 +127,7 @@ namespace Animation
                 Microsoft.Xna.Framework.Graphics.SamplerState.PointClamp,
                 null,
                 null);
+
             _spriteBatch.Draw(
                 marioTex,
                 destRect,
@@ -106,6 +137,12 @@ namespace Animation
                 Vector2.Zero,
                 SpriteEffects.None,
                 0.5f);
+
+            ////            DebugRectangle.DrawRectangle(_spriteBatch, destRect, Color.Green);
+            //_spriteBatch.DrawRectangle(rect1, Color.Red);
+            //_spriteBatch.DrawRectangle(rect2, Color.Green);
+            //_spriteBatch.DrawRectangle(rect3, Color.Blue);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
