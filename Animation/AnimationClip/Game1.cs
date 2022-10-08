@@ -84,13 +84,20 @@ namespace Animation
 
             Rectangle destRect = new Rectangle(100, 100, 300, 300);
 
-            _spriteBatch.Begin(
-                SpriteSortMode.BackToFront, 
-                null, 
-                Microsoft.Xna.Framework.Graphics.SamplerState.PointClamp,
-                null, 
-                null);
+            //_spriteBatch.Begin();
+            //_spriteBatch.Draw(
+            //    marioTex,
+            //    destRect,
+            //    marioCurrentClip.GetCurrentSourceRectangle(),
+            //    Color.White);
+            //_spriteBatch.End();
 
+            _spriteBatch.Begin(
+                SpriteSortMode.BackToFront,
+                null,
+                Microsoft.Xna.Framework.Graphics.SamplerState.PointClamp,
+                null,
+                null);
             _spriteBatch.Draw(
                 marioTex,
                 destRect,
@@ -100,7 +107,6 @@ namespace Animation
                 Vector2.Zero,
                 SpriteEffects.None,
                 0.5f);
-
             _spriteBatch.End();
 
             base.Draw(gameTime);
