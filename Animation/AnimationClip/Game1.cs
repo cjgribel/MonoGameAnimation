@@ -16,7 +16,10 @@ namespace Animation
             texture.SetData(color);
         }
 
-        public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rectangle, Color color)
+        public static void DrawRectangle(
+            this SpriteBatch 
+            spriteBatch, Rectangle rectangle,
+            Color color)
         {
             spriteBatch.Draw(texture, rectangle, color);
         }
