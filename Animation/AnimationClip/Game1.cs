@@ -46,7 +46,7 @@ namespace Animation
         {
             // TODO: Add your initialization logic here
             
-            _graphics.PreferredBackBufferWidth = 500;
+            _graphics.PreferredBackBufferWidth = 1400;
             _graphics.PreferredBackBufferHeight = 500;
             _graphics.ApplyChanges();
 
@@ -110,42 +110,65 @@ namespace Animation
 
             // TODO: Add your drawing code here
 
-            Rectangle destRect = new Rectangle(100, 100, 300, 300);
+            Rectangle destRect1 = new Rectangle(400, 100, 300, 300);
+            Rectangle destRect2 = new Rectangle(700, 100, 300, 300);
+            Rectangle destRect3 = new Rectangle(1000, 100, 300, 300);
 
             Rectangle rect1 = new Rectangle(100, 100, 100, 100);
             Rectangle rect2 = new Rectangle(200, 100, 100, 100);
             Rectangle rect3 = new Rectangle(300, 100, 100, 100);
 
-            //_spriteBatch.Begin();
-            //_spriteBatch.Draw(
-            //    marioTex,
-            //    destRect,
-            //    marioCurrentClip.GetCurrentSourceRectangle(),
-            //    Color.White);
-            //_spriteBatch.End();
-
+            // Debug rectangles
+            //
             _spriteBatch.Begin(
                 SpriteSortMode.BackToFront,
                 null,
                 Microsoft.Xna.Framework.Graphics.SamplerState.PointClamp,
                 null,
                 null);
-
-            _spriteBatch.Draw(
-                marioTex,
-                destRect,
-                currentClip.GetCurrentSourceRectangle(),
-                Color.White,
-                0,
-                Vector2.Zero,
-                SpriteEffects.None,
-                0.5f);
-
             ////            DebugRectangle.DrawRectangle(_spriteBatch, destRect, Color.Green);
-            //_spriteBatch.DrawRectangle(rect1, Color.Red);
-            //_spriteBatch.DrawRectangle(rect2, Color.Green);
-            //_spriteBatch.DrawRectangle(rect3, Color.Blue);
+            _spriteBatch.DrawRectangle(rect1, Color.Red);
+            _spriteBatch.DrawRectangle(rect2, Color.Green);
+            _spriteBatch.DrawRectangle(rect3, Color.Blue);
+            _spriteBatch.End();
 
+            // Sprite animation with layer depth
+            //
+            _spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront);
+            _spriteBatch.Draw(
+                texture: marioTex,
+                destinationRectangle: destRect1,
+                sourceRectangle: null,
+                color: Color.White,
+                rotation: 0,
+                origin: Vector2.Zero,
+                SpriteEffects.None,
+                layerDepth: 0.5f);
+            _spriteBatch.End();
+
+            // Sprite animation with PointClamp
+            //
+            _spriteBatch.Begin(
+                samplerState: Microsoft.Xna.Framework.Graphics.SamplerState.PointClamp);
+            _spriteBatch.Draw(
+                texture: marioTex,
+                destinationRectangle: destRect2,
+                sourceRectangle: currentClip.GetCurrentSourceRectangle(),
+                color: Color.White);
+            _spriteBatch.End();
+
+            // Flipped texture
+            //
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(
+                texture: marioTex,
+                destinationRectangle: destRect3,
+                sourceRectangle: null,
+                color: Color.White,
+                rotation: 0,
+                origin: Vector2.Zero,
+                SpriteEffects.FlipHorizontally,
+                layerDepth: 0);
             _spriteBatch.End();
 
             base.Draw(gameTime);
