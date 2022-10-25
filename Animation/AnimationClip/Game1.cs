@@ -106,6 +106,9 @@ namespace Animation
 
         protected override void Draw(GameTime gameTime)
         {
+            // Spritebatch methods
+            // https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.SpriteBatch.html#methods
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
